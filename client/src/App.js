@@ -1,8 +1,18 @@
-import React from 'react'
+import React from 'react';
+import { Routes, Route } from 'react-router-dom';
+import Login from './components/pages/auth/Login';
+import Register from './components/pages/auth/Register';
+import HomePage from './components/pages/HomePage';
 
 const App = () => {
   return (
-    <h1 className='text-danger'>App</h1>
+    <>
+      <Routes>
+        <Route path='/' element={<HomePage />} />
+        <Route path='/login' element={<Login />} />
+        <Route path='/register' element={<Register />} />
+      </Routes>
+    </>
   )
 }
 
