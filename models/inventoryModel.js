@@ -15,10 +15,10 @@ const inventorySchema = new mongoose.Schema({
         type: Number,
         required: [true, 'Quantity is required']
     },
-    organisation: {
+    organization: {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'Users',
-        required: [true, 'Organisation is required']
+        required: [true, 'Organization is required']
     },
     hospital: {
         type: mongoose.Schema.Types.ObjectId,
@@ -27,7 +27,7 @@ const inventorySchema = new mongoose.Schema({
             return this.inventoryType === 'out'
         }
     },
-    donar: {
+    donor: {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'Users',
         required: function () {

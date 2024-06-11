@@ -69,3 +69,13 @@
   text-decoration: underline;
   cursor: pointer;
 }
+
+.radio-box {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 10px;
+}
+
+.radio-box label {
+  margin: 10px;
+}

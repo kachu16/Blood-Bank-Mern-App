@@ -9,8 +9,8 @@ export const createInventoryController = async (req, res) => {
         if (!user) {
             throw new Error('User not found');
         }
-        if (inventoryType === 'in' && user.role !== 'Donar') {
-            throw new Error('Only Donar can add blood');
+        if (inventoryType === 'in' && user.role !== 'Donor') {
+            throw new Error('Only Donor can add blood');
         }
         if (inventoryType === 'out' && user.role !== 'hospital') {
             throw new Error('Only Hospital can send blood');
@@ -38,8 +38,8 @@ export const createInventoryController = async (req, res) => {
 
 export const getInventoryController = async (req, res) => {
     try {
-        //after login as organisation : only organisation can get all inventory
-        const inventory = await inventoryModel.find({ organisation: req.body.decodeID }).populate('donar').populate('hospital').populate('organisation').sort({ createdAt: -1 });
+        //after login as organization : only organization can get all inventory
+        const inventory = await inventoryModel.find({ organization: req.body.decodeID }).populate('donor').populate('hospital').populate('organisation').sort({ createdAt: -1 });
         return res.status(200).send({
             success: true,
             message: 'Successfully get all inventories',
