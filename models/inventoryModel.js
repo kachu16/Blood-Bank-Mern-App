@@ -24,14 +24,14 @@ const inventorySchema = new mongoose.Schema({
         type: mongoose.Schema.Types.ObjectId,
         ref: 'Users',
         required: function () {
-            return this.inventoryType === 'out'
+            return this.inventoryType === 'Out'
         }
     },
     donor: {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'Users',
         required: function () {
-            return this.inventoryType === 'in'
+            return this.inventoryType === 'In'
         }
     },
 }, { timestamps: true });

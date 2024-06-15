@@ -5,7 +5,7 @@ const Register = () => {
     return (
         <div className='form'>
             <div className="form-box">
-                <Form submitBtn="Register" formType="register" />
+                <Form submitBtn="Register" formType="register" mainHeading="Create your account" />
             </div>
         </div>
     )
