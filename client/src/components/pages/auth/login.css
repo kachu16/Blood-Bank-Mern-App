@@ -38,6 +38,7 @@
   padding: 12px;
   margin: 10px 0;
 }
+
 .input-box input::placeholder {
   color: #fff;
 }

@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
 import InputType from './InputType'
+import { handleLogin, handleSignUp } from '../../../services/authServices';
 
 const Form = ({ submitBtn, formType }) => {
 
@@ -12,11 +13,17 @@ const Form = ({ submitBtn, formType }) => {
     const [address, setAddress] = useState('');
     const [phone, setPhone] = useState('');
 
-
+    
 
     return (
         <div>
-            <form>
+            <form onSubmit={(e)=>{
+                if(formType === 'login'){
+                    return handleLogin(e,email, password,role);
+                }else if(formType ==='signup'){
+                    return handleSignUp(e,email, password, name, role, organizationName, hospitalName, address, phone);
+                }
+            }}>
                 <h1>Welcome back</h1>
                 <p>Please enter your details</p>
 
