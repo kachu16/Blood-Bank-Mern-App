@@ -1,7 +1,9 @@
-import React, { useState } from 'react'
-import InputType from './InputType'
+import React, { useState } from 'react';
+import InputType from './InputType';
+import { handleLogin, handleRegister } from '../../services/authService';
+import { Link } from 'react-router-dom';
 
-const Form = ({ submitBtn, formType }) => {
+const Form = ({ submitBtn, formType, mainHeading }) => {
 
     const [formData, setFormData] = useState({
         email: "",
@@ -67,9 +69,14 @@ const Form = ({ submitBtn, formType }) => {
 
     return (
         <div>
-            <form>
-                <h1>Welcome back</h1>
-                <p>Please enter your details</p>
+            <form onSubmit={(e) => {
+                e.preventDefault();
+                if (validateForm()) {
+                    if (formType === 'login') return handleLogin(e, formData.role, formData.email, formData.password)
+                    else if (formType === 'register') return handleRegister(e, formData.role, formData.email, formData.password, formData.name, formData.organizationName, formData.hospitalName, formData.address, formData.phone)
+                }
+            }}>
+                <h1>{mainHeading}</h1>
 
                 <div className='radio-box'>
                     <div>
