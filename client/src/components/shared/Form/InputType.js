@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 
-const InputType = ({ labelText, labelFor, inputType, placeholder, name, value, onChange, isError }) => {
+const InputType = ({ labelText, labelFor, inputType, placeholder, name, value, onChange }) => {
 
     const [isError, setIsError] = useState(false);
 
