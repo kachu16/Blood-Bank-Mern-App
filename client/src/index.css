@@ -82,9 +82,10 @@
   display: flex;
   justify-content: space-between;
   margin: 15px;
+  flex-wrap: wrap;
 }
 .radio-box label {
-  margin: 10px;
+  margin: 4px;
 }
 
 .error {
