@@ -1,47 +1,91 @@
 import React, { useState } from 'react'
 import InputType from './InputType'
-import { handleLogin, handleSignUp } from '../../../services/authServices';
 
 const Form = ({ submitBtn, formType }) => {
 
-    const [email, setEmail] = useState('');
-    const [password, setPassword] = useState('');
-    const [role, setRole] = useState('Donor');
-    const [name, setName] = useState('');
-    const [organizationName, setOrganizationName] = useState('');
-    const [hospitalName, setHospitalName] = useState('');
-    const [address, setAddress] = useState('');
-    const [phone, setPhone] = useState('');
+    const [formData, setFormData] = useState({
+        email: "",
+        password: "",
+        role: "Donor",
+        name: "",
+        organizationName: "",
+        hospitalName: "",
+        address: "",
+        phone: ""
+    })
 
-    
+    const handleChange = (e) => {
+        const { name, value } = e.target;
+        setFormData({ ...formData, [name]: value })
+    }
+
+    const [errors, setErrors] = useState({})
+
+    const validateForm = () => {
+        const newErrors = {};
+        const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
+
+        if (!formData.email) {
+            newErrors.email = "Email is required";
+        } else if (!/\S+@\S+\.\S+/.test(formData.email)) {
+            newErrors.email = "Email Address is invalid";
+        }
+
+        if (!formData.password) {
+            newErrors.password = "Password is required";
+        } else if (!passwordRegex.test(formData.password)) {
+            newErrors.password = "Password must contain at least 8 characters, including an uppercase letter, a lowercase letter, a digit, and a special character.";
+        }
+
+        if (formType === 'register') {
+            if (!formData.name && (formData.role === 'Donor' || formData.role === 'Admin')) {
+                newErrors.name = "Name is required";
+            } else if (formData.name.length < 6) {
+                newErrors.name = "Name must be at least 6 characters long";
+            }
+
+            if (!formData.organizationName && formData.role === 'Organization') {
+                newErrors.organizationName = "Organization Name is required";
+            }
+            if (!formData.hospitalName && formData.role === 'Hospital') {
+                newErrors.hospitalName = "Hospital Name is required";
+            }
+            if (!formData.address) {
+                newErrors.address = "Address is required";
+            }
+            if (!formData.phone) {
+                newErrors.phone = "Phone is required";
+            } else if (!/^\d{10}$/.test(formData.phone)) {
+                newErrors.phone = "Phone number is invalid";
+            }
+        }
+
+        setErrors(newErrors);
+        return Object.keys(newErrors).length === 0;
+    };
+
 
     return (
         <div>
-            <form onSubmit={(e)=>{
-                if(formType === 'login'){
-                    return handleLogin(e,email, password,role);
-                }else if(formType ==='signup'){
-                    return handleSignUp(e,email, password, name, role, organizationName, hospitalName, address, phone);
-                }
-            }}>
+            <form>
                 <h1>Welcome back</h1>
                 <p>Please enter your details</p>
 
                 <div className='radio-box'>
                     <div>
-                        <input id='donorRadio' type='radio' value="Donor" name='role' onChange={(e) => setRole(e.target.value)} defaultChecked />
+                        <input id='donorRadio' type='radio' value="Donor" name='role' onChange={handleChange} defaultChecked />
                         <label htmlFor='donorRadio'>Donor</label>
                     </div>
                     <div>
-                        <input id='adminRadio' type='radio' value="Admin" name='role' onChange={(e) => setRole(e.target.value)} />
+                        <input id='adminRadio' type='radio' value="Admin" name='role' onChange={handleChange} />
                         <label htmlFor='adminRadio'>Admin</label>
                     </div>
                     <div>
-                        <input id='hospitalRadio' type='radio' value="Hospital" name='role' onChange={(e) => setRole(e.target.value)} />
+                        <input id='hospitalRadio' type='radio' value="Hospital" name='role' onChange={handleChange} />
                         <label htmlFor='hospitalRadio'>Hospital</label>
                     </div>
                     <div>
-                        <input id='orgRadio' type='radio' value="Organization" name='role' onChange={(e) => setRole(e.target.value)} />
+                        <input id='orgRadio' type='radio' value="Organization" name='role' onChange={handleChange} />
                         <label htmlFor='orgRadio'>Organization</label>
                     </div>
                 </div>
@@ -52,8 +96,10 @@ const Form = ({ submitBtn, formType }) => {
                         case formType === "login": {
                             return (
                                 <>
-                                    <InputType labelText='Enter the Email' labelFor='email' inputType='email' placeholder='Email' name='email' value={email} onChange={(e) => setEmail(e.target.value)} />
-                                    <InputType labelText='Enter the password' labelFor='password' inputType='password' placeholder='Pasword' name='password' value={password} onChange={(e) => setPassword(e.target.value)} />
+                                    <InputType labelText='Enter the Email' labelFor='email' inputType='email' placeholder='Email' name='email' value={formData.email} onChange={handleChange} />
+                                    {errors.email && <p className='error'>{errors.email}</p>}
+                                    <InputType labelText='Enter the password' labelFor='password' inputType='password' placeholder='Pasword' name='password' value={formData.password} onChange={handleChange} />
+                                    {errors.password && <p className='error'>{errors.password}</p>}
                                 </>
                             )
                         }
@@ -62,21 +108,68 @@ const Form = ({ submitBtn, formType }) => {
                             return (
                                 <>
                                     {
-                                        (role === "Donor" || role === "Admin") ? <InputType labelText='Enter the Name' labelFor='name' inputType='text' placeholder='Name' name='name' value={name} onChange={(e) => setName(e.target.value)} /> : role === "Organization" ? <InputType labelText='Enter the Organization Name' labelFor='organisation' inputType='text' placeholder='Organisation' name='organisation' value={organizationName} onChange={(e) => setOrganizationName(e.target.value)} /> : role === "Hospital" ? <InputType labelText='Enter the Hopital Name' labelFor='hospital' inputType='text' placeholder='Hospital' name='hospital' value={hospitalName} onChange={(e) => setHospitalName(e.target.value)} /> : null
+                                        (formData.role === "Donor" || formData.role === "Admin") ? (
+                                            <>
+                                                <InputType
+                                                    labelText='Enter the Name'
+                                                    labelFor='name'
+                                                    inputType='text'
+                                                    placeholder='Name'
+                                                    name='name'
+                                                    value={formData.name}
+                                                    onChange={handleChange}
+                                                />
+                                                {errors.name && <p className='error'>{errors.name}</p>}
+                                            </>
+                                        ) : formData.role === "Organization" ? (
+                                            <>
+                                                <InputType
+                                                    labelText='Enter the Organization Name'
+                                                    labelFor='organization'
+                                                    inputType='text'
+                                                    placeholder='Organization'
+                                                    name='organizationName'
+                                                    value={formData.organizationName}
+                                                    onChange={handleChange}
+                                                />
+                                                {errors.organizationName && <p className='error'>{errors.organizationName}</p>}
+                                            </>
+                                        ) : formData.role === "Hospital" ? (
+                                            <>
+                                                <InputType
+                                                    labelText='Enter the Hospital Name'
+                                                    labelFor='hospital'
+                                                    inputType='text'
+                                                    placeholder='Hospital'
+                                                    name='hospitalName'
+                                                    value={formData.hospitalName}
+                                                    onChange={handleChange}
+                                                />
+                                                {errors.hospitalName && <p className='error'>{errors.hospitalName}</p>}
+                                            </>
+                                        ) : null
                                     }
-                                    <InputType labelText='Enter the Email' labelFor='email' inputType='email' placeholder='Email' name='email' value={email} onChange={(e) => setEmail(e.target.value)} />
-                                    <InputType labelText='Enter the password' labelFor='password' inputType='password' placeholder='Password' name='password' value={password} onChange={(e) => setPassword(e.target.value)} />
 
-                                    <InputType labelText='Enter the Address' labelFor='address' inputType='text' placeholder='Address' name='address' value={address} onChange={(e) => setAddress(e.target.value)} />
-                                    <InputType labelText='Enter the Phone' labelFor='phone' inputType='text' placeholder='Phone' name='phone' value={phone} onChange={(e) => setPhone(e.target.value)} />
+                                    <InputType labelText='Enter the Email' labelFor='email' inputType='email' placeholder='Email' name='email' value={formData.email} onChange={handleChange} />
+                                    {errors.email && <p className='error'>{errors.email}</p>}
+                                    <InputType labelText='Enter the password' labelFor='password' inputType='password' placeholder='Password' name='password' value={formData.password} onChange={handleChange} />
+                                    {errors.password && <p className='error'>{errors.password}</p>}
+                                    <InputType labelText='Enter the Address' labelFor='address' inputType='text' placeholder='Address' name='address' value={formData.address} onChange={handleChange} />
+                                    {errors.address && <p className='error'>{errors.address}</p>}
+                                    <InputType labelText='Enter the Phone' labelFor='phone' inputType='text' placeholder='Phone' name='phone' value={formData.phone} onChange={handleChange} />
+                                    {errors.phone && <p className='error'>{errors.phone}</p>}
                                 </>
                             )
                         }
                     }
                 })()}
 
-                {/* Don't have an account? <span>Signup</span> */}
                 <button type='submit'>{submitBtn}</button>
+
+                {
+                    formType === "register" ? <p className='last-para'>Already have an account? <Link to='/login'>SignIn</Link> </p> : formType === "login" ? <p className='last-para'>Don't have an account? <Link to='/register'>Signup</Link></p> : null
+                }
+
             </form>
         </div>
     )
