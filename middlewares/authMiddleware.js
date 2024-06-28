@@ -8,7 +8,7 @@ export const authMiddleware = (req, res, next) => {
         // decode contains the original data /payload
         jwt.verify(token, process.env.JWT_SECRET, (err, decode) => {
             if (err) {
-                return res.staus(401).send({
+                return res.status(401).send({
                     success: false,
                     message: "Auth failed"
                 })
