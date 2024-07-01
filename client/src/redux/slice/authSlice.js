@@ -1,5 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { userLogin, userRegister } from "./authActions";
+import { getCurrentUser, userLogin, userRegister } from "./authActions";
 
 // if token already exists with respect to the expiry date that we set in the backend, we will not allow the user to login again.
 const token = localStorage.getItem('token') ? localStorage.getItem('token') : null;
@@ -14,8 +14,8 @@ const initialState = {
 const authSlice = createSlice({
     name: 'auth',
     initialState: initialState,
-    reducers: {},
-    extraReducers: (builder) => {
+    reducers: {}, 
+    extraReducers: (builder) => { 
         //login
         builder.addCase(userLogin.pending, (state) => {
             state.loading = true;
@@ -43,6 +43,19 @@ const authSlice = createSlice({
         builder.addCase(userRegister.rejected, (state, { payload }) => {
             state.loading = false;
             state.error = payload.error;
+        })
+        // current user
+        builder.addCase(getCurrentUser.pending, (state) => {
+            state.loading = true;
+            state.error = null;
+        })
+        builder.addCase(getCurrentUser.fulfilled, (state, { payload }) => {
+            state.loading = false;
+            state.user = payload.user;
+        })
+        builder.addCase(getCurrentUser.rejected, (state, { payload }) => {
+            state.loading = false;
+            state.error = payload;
         })
     }
 });

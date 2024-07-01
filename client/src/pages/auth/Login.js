@@ -1,13 +1,17 @@
 import React from 'react';
 import Form from '../../components/shared/Form';
+import Loader from '../../components/shared/Loader';
+import { useSelector } from 'react-redux';
 
 const Login = () => {
-    return (
-        <div className='form'>
+    const {loading , error } = useSelector( state => state.auth);
+    return (<>
+       {loading ? (<Loader/>): (<div className='form'>
             <div className="form-box">
                 <Form submitBtn="Login" formType="login" mainHeading="Welcome back" />
             </div>
-        </div>
+        </div>)}
+    </>
     )
 }
 
