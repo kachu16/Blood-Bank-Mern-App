@@ -48,9 +48,9 @@ const userSchema = new mongoose.Schema({
         required: [true, 'Address is required']
 
     },
-    mobile: {
+    phone: {
         type: String,
-        required: [true, 'Mobile Number is required']
+        required: [true, 'Phone Number is required']
     }
 }, { timestamps: true });
 
