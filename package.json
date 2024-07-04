@@ -7,8 +7,8 @@
   "scripts": {
     "start": "nodemon server.js",
     "test": "echo \"Error: no test specified\" && exit 1",
-    "client":"npm run start --prefix client",
-    "dev" : "concurrently \"npm run client\" \"npm run start\""
+    "client": "npm run start --prefix client",
+    "dev": "concurrently \"npm run client\" \"npm run start\""
   },
   "author": "kajol",
   "license": "ISC",
@@ -23,5 +23,8 @@
     "mongoose": "^8.3.4",
     "morgan": "^1.10.0",
     "nodemon": "^3.1.0"
+  },
+  "devDependencies": {
+    "tailwindcss": "^3.4.4"
   }
 }
