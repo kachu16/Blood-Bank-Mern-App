@@ -1,14 +1,32 @@
-import React from 'react';
-import Form from '../../components/shared/Form';
+import React from "react";
+import Form from "../../components/shared/Form";
+import { useSelector } from "react-redux";
+import Spinner from "../../components/shared/Spinner";
 
 const Login = () => {
-    return (
-        <div className='form'>
-            <div className="form-box">
-                <Form submitBtn="Login" formType="login" mainHeading="Welcome back" />
-            </div>
-        </div>
-    )
-}
+  const loading = useSelector((store) => store.auth.loading);
+  const error = useSelector((store) => store.auth.error);
 
-export default Login
+  console.log(loading, error);
+
+  return (
+    <>
+      {error && <span>{alert(error)}</span>}
+      {loading ? (
+        <Spinner />
+      ) : (
+        <div className="form">
+          <div className="form-box">
+            <Form
+              submitBtn="Login"
+              formType="login"
+              mainHeading="Welcome back"
+            />
+          </div>
+        </div>
+      )}
+    </>
+  );
+};
+
+export default Login;

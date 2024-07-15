@@ -6,8 +6,9 @@ export const userLogin = createAsyncThunk(
   "auth/login",
   async ({ role, email, password }, { rejectWithValue }) => {
     try {
+      // returns a promise
       const { data } = await API.post("/auth/login", { role, email, password });
-      // console.log(data)
+      console.log(data);
       //store token to localstorage
       if (data.success) {
         localStorage.setItem("token", data.token);
@@ -73,7 +74,7 @@ export const getCurrentUser = createAsyncThunk(
   "auth/getcurrent",
   async ({ rejectWithValue }) => {
     try {
-      const res = API.get("/auth/current-user");
+      const res = await API.get("/auth/current-user");
       if (res?.data) {
         console.log(res);
         return res?.data;

@@ -16,7 +16,9 @@ const initialState = {
 const authSlice = createSlice({
   name: "auth",
   initialState: initialState,
+  // FUNCTION WE DEFINE HERE ONLY
   reducers: {},
+  // FUNCTION THAT WE DEINE SOMEWHERE ELSE
   extraReducers: (builder) => {
     //login
     builder.addCase(userLogin.pending, (state) => {
@@ -30,7 +32,7 @@ const authSlice = createSlice({
     });
     builder.addCase(userLogin.rejected, (state, { payload }) => {
       state.loading = false;
-      state.error = payload.error;
+      state.error = payload;
     });
 
     // register user
