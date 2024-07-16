@@ -51,17 +51,17 @@ const authSlice = createSlice({
 
     // get currentuser
     builder.addCase(getCurrentUser.pending, (state) => {
-      state.loading = true;
-      state.error = null;
-    });
+        state.loading = true;
+        state.error = null;
+    })
     builder.addCase(getCurrentUser.fulfilled, (state, { payload }) => {
-      state.loading = false;
-      state.user = payload.user;
-    });
+        state.loading = false;
+        state.user = payload.user;
+    })
     builder.addCase(getCurrentUser.rejected, (state, { payload }) => {
-      state.loading = false;
-      state.error = payload.error;
-    });
+        state.loading = false;
+        state.error = payload;
+    })
   },
 });
 
