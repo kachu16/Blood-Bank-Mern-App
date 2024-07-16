@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import InputType from "./InputType";
-import { handleLogin, handleRegister } from "../../services/authService";
+import { handleLogin, handleRegister } from "../services/authService";
 import { Link } from "react-router-dom";
 
 const Form = ({ submitBtn, formType, mainHeading }) => {

@@ -1,7 +1,7 @@
 import React from "react";
-import Form from "../../components/shared/Form";
+import Form from "../../components/Form";
 import { useSelector } from "react-redux";
-import Spinner from "../../components/shared/Spinner";
+import Spinner from "../../components/Spinner";
 
 const Login = () => {
   const loading = useSelector((store) => store.auth.loading);
