@@ -7,7 +7,7 @@ const Login = () => {
   const loading = useSelector((store) => store.auth.loading);
   const error = useSelector((store) => store.auth.error);
 
-  console.log(loading, error);
+  // console.log(loading, error);
 
   return (
     <>

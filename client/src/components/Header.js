@@ -13,12 +13,14 @@ const Header = () => {
   return (
     <header className="header-menu">
       <div className="header-left">
-        <h1>Heading</h1>
+        <h1>BLOOD BANK</h1>
       </div>
       <div className="header-right">
         <div className="header-name">
           <span>Welcome </span>
-          <span>{user?.name}!</span>
+          <span>
+            {user?.name || user?.hospitalName || user?.organizationName}!
+          </span>
           <span className="badge">{user?.role}</span>
         </div>
         <button className="logout-button" onClick={handleLogout}>
