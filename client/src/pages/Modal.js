@@ -1,7 +1,30 @@
-import React from "react";
+import React, { useState } from "react";
 import InputType from "../components/InputType";
+import API from "../services/API";
 
 const Modal = ({ setShowModal }) => {
+  const [formData, setFormData] = useState({
+    inventoryType: "In",
+    bloodGroup: "A+",
+    quantity: 0,
+    email: "",
+  });
+
+  function handleChange(e) {
+    const { name, value } = e.target;
+    console.log(e);
+    setFormData({ ...formData, [name]: value });
+  }
+  async function handleSubmit(e) {
+    try {
+      e.preventDefault();
+      console.log(formData);
+      const res = await API.post("/create-inventory", { formData });
+      console.log(res);
+    } catch (error) {
+      console.log(error);
+    }
+  }
   return (
     <div className="modal-overlay">
       <div className="modal">
@@ -19,18 +42,36 @@ const Modal = ({ setShowModal }) => {
         >
           X
         </button>
-        <form style={{ paddingTop: "20px" }}>
+        {/* form */}
+        <form style={{ paddingTop: "20px" }} onSubmit={handleSubmit}>
           <p>
             Inventory Type:
-            <input id="typeIn" type="radio" value="In" name="itype" />
+            <input
+              id="typeIn"
+              type="radio"
+              value="In"
+              name="itype"
+              onChange={handleChange}
+              defaultChecked
+            />
             <label htmlFor="typeIn">In</label>
-            <input id="typeOut" type="radio" value="Out" name="itype" />
+            <input
+              id="typeOut"
+              type="radio"
+              value="Out"
+              name="inventoryType"
+              onChange={handleChange}
+            />
             <label htmlFor="typeOut">Out</label>
           </p>
 
           <p>Blood Group:</p>
-          <select name="bloodGroup">
-            <option value="A+">A-</option>
+          <select
+            name="bloodGroup"
+            value={formData.bloodGroup}
+            onChange={handleChange}
+          >
+            <option value="A+">A+</option>
             <option value="A-">A-</option>
             <option value="B+">B+</option>
             <option value="B-">B-</option>
@@ -46,13 +87,17 @@ const Modal = ({ setShowModal }) => {
             inputType="number"
             placeholder="Quantity"
             name="quantity"
+            onChange={handleChange}
+            value={formData.quantity}
           />
           <InputType
             labelText="Enter the Donor Email:"
             labelFor="donoremail"
             inputType="email"
             placeholder="Donar Email"
-            name="donoremail"
+            name="email"
+            value={formData.email}
+            onChange={handleChange}
           />
           <div>
             <button type="submit" className="modalbutton">

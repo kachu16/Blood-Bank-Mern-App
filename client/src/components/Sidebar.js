@@ -6,10 +6,10 @@ const Sidebar = () => {
   const location = useLocation();
   return (
     <div className="sidebar">
-      {userMrnuOptions.map((item) => {
+      {userMrnuOptions.map((item, index) => {
         const isactive = location.pathname === item.path;
         return (
-          <div className={`sidebar-items ${isactive && "active"}`}>
+          <div key={index} className={`sidebar-items ${isactive && "active"}`}>
             <i className={item.icon}></i>
             <Link to={item.path}>
               <p>{item.name}</p>
