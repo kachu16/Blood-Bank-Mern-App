@@ -22,7 +22,18 @@ export const handleRegister = (
   address,
   phone
 ) => {
-  e.preventDefault();   
+  e.preventDefault();
+  console.log(
+    "Register Detail",
+    role,
+    email,
+    password,
+    name,
+    organizationName,
+    hospitalName,
+    address,
+    phone
+  );
   try {
     store.dispatch(
       userRegister({

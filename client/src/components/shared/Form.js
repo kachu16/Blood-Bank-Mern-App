@@ -24,6 +24,7 @@ const Form = ({ submitBtn, formType, mainHeading }) => {
     const [errors, setErrors] = useState({})
 
     const validateForm = () => {
+        console.log(formData);
         const newErrors = {};
         // const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
 
@@ -73,7 +74,7 @@ const Form = ({ submitBtn, formType, mainHeading }) => {
             <form onSubmit={(e) => {
                 e.preventDefault();
                 if (validateForm()) {
-                    if (formType === 'login') return handleLogin(e, formData.role, formData.email, formData.password)
+                    if (formType === 'login') return handleLogin(e, formData.role, formData.email, formData.password);
                     else if (formType === 'register') return handleRegister(e, formData.role, formData.email, formData.password, formData.name, formData.organizationName, formData.hospitalName, formData.address, formData.phone)
                 }
             }}>

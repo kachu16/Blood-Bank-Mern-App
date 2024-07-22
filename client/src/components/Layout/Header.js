@@ -13,16 +13,16 @@ const Header = () => {
   return (
     <>
       <nav className="navbar">
-        <div className="container-fluid flex justify-between py-5 px-5">
+        <div className="container-fluid flex justify-between p-2">
           <div className="navbar-brand h1 flex items-center gap-2">
             <BiSolidDonateBlood /> Blood Bank App
           </div>
-          <ul className="navbar-nav flex gap-5 justify-around">
+          <ul className="navbar-nav flex flex-row gap-5 justify-around">
             <li className="nav-item mx-3">
               <p className="nav-link flex justify-center items-center gap-2 rounded">
                 <FaUser /> Welcome{" "}
                 {user?.name || user?.hospitalName || user?.organizationName}{" "}
-                <span className="badge bg-slate-500 p-1 rounded text-sm">{user?.role}</span>
+                <span className="badge bg-slate-500 p-1 rounded text-xs">{user?.role}</span>
               </p>
             </li>
             <li className="nav-item mx-3">

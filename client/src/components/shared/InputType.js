@@ -11,4 +11,4 @@ const InputType = ({ labelText, labelFor, inputType, placeholder, name, value, o
     )
 }
 
-export default InputType
+export default InputType;

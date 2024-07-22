@@ -9,9 +9,9 @@ export const createInventoryController = async (req, res) => {
         if (!user) {
             throw new Error('User not found');
         }
-        if (inventoryType === 'In' && user.role !== 'Donor') {
-            throw new Error('Only Donor can add blood');
-        }
+        // if (inventoryType === 'In' && user.role !== 'Donor') {
+        //     throw new Error('Only Donor can add blood');
+        // }
         if (inventoryType === 'Out' && user.role !== 'Hospital') {
             throw new Error('Only Hospital can send blood');
         }

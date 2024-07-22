@@ -28,7 +28,7 @@ const authSlice = createSlice({
         })
         builder.addCase(userLogin.rejected, (state, { payload }) => {
             state.loading = false;
-            state.error = payload.error;
+            state.error = payload;
         })
 
         // register user
@@ -44,6 +44,7 @@ const authSlice = createSlice({
             state.loading = false;
             state.error = payload.error;
         })
+
         // current user
         builder.addCase(getCurrentUser.pending, (state) => {
             state.loading = true;

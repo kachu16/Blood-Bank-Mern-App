@@ -1,11 +1,19 @@
 import React from "react";
 import Header from "./Header";
+import Sidebar from "./Sidebar";
 
 const Layout = ({ children }) => {
   return (
     <>
-      <div className="header"><Header/></div>
-      <div className="content">{children}</div>
+      <div className="header">
+        <Header />
+      </div>
+      <div className="row gap-0">
+        <div className="col-md-3">
+          <Sidebar />
+        </div>
+        <div className="col-md-9">{children}</div>
+      </div>
     </>
   );
 };
