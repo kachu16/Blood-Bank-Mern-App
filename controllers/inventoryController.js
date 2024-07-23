@@ -6,6 +6,7 @@ export const createInventoryController = async (req, res) => {
     const { email, inventoryType } = req.body;
     // validation
     const user = await userModel.findOne({ email });
+    console.log(user);
     if (!user) {
       throw new Error(
         "User not found! Enter a valid Email Address from which you registered"
@@ -24,7 +25,7 @@ export const createInventoryController = async (req, res) => {
 
     return res.status(200).send({
       success: true,
-      message: `New Blood Record Added by ${user.role}`,
+      message: "New Blood Record Added",
       inventory,
     });
   } catch (err) {
@@ -41,7 +42,7 @@ export const getInventoryController = async (req, res) => {
   try {
     console.log(req.body.decodeID);
     const inventory = await inventoryModel
-      .find({ organization: req.body.organization })
+      .find({ organization: req.body.decodeID })
       .populate("donor")
       .populate("hospital")
       .populate("organization")

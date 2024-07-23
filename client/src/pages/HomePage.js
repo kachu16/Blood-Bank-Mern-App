@@ -1,13 +1,27 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useSelector } from "react-redux";
 import Spinner from "../components/Spinner";
 import Layout from "../components/Layout";
-import InputType from "../components/InputType";
 import Modal from "./Modal";
+import API from "../services/API";
 
 const HomePage = () => {
   const [showModal, setShowModal] = useState(false);
   const { loading, error } = useSelector((store) => store.auth);
+  const [inventories, setInventories] = useState([]);
+  async function getInventoryRecords() {
+    try {
+      const { data } = await API.get("/inventory/get-inventory");
+      setInventories(data?.inventory);
+      console.log(inventories);
+    } catch (error) {
+      console.log(error);
+    }
+  }
+  useEffect(() => {
+    getInventoryRecords();
+  }, []);
+
   return (
     <Layout>
       {error && <span>{alert(error)}</span>}
@@ -15,13 +29,54 @@ const HomePage = () => {
         <Spinner />
       ) : (
         <div className="add-inventory">
-          <button onClick={() => setShowModal(!showModal)}>
+          <button
+            style={{ margin: "30px" }}
+            className="modalbutton"
+            onClick={() => setShowModal(!showModal)}
+          >
             + {!showModal ? "Add" : "Remove"} Inventory
           </button>
         </div>
       )}
 
       {showModal && <Modal setShowModal={setShowModal} />}
+      {inventories && (
+        <div className="inventory-container">
+          <table>
+            <thead>
+              <tr>
+                <th>Date</th>
+                <th>Inventory Type</th>
+                <th>Blood Group</th>
+                <th>Quantity</th>
+              </tr>
+            </thead>
+            <tbody>
+              {inventories.map((item, index) => {
+                const date = new Date(item?.createdAt);
+                const options = {
+                  year: "numeric",
+                  month: "long",
+                  day: "numeric",
+                  hour: "2-digit",
+                  minute: "2-digit",
+                  second: "2-digit",
+                  hour12: false, // Set to true for 12-hour format
+                };
+                const formattedDate = date.toLocaleString(undefined, options);
+                return (
+                  <tr key={index}>
+                    <th>{formattedDate}</th>
+                    <th>{item?.inventoryType}</th>
+                    <th>{item?.bloodGroup}</th>
+                    <th>{item?.quantity}</th>
+                  </tr>
+                );
+              })}
+            </tbody>
+          </table>
+        </div>
+      )}
     </Layout>
   );
 };
