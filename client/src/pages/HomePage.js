@@ -9,11 +9,11 @@ const HomePage = () => {
   const [showModal, setShowModal] = useState(false);
   const { loading, error } = useSelector((store) => store.auth);
   const [inventories, setInventories] = useState([]);
+
   async function getInventoryRecords() {
     try {
       const { data } = await API.get("/inventory/get-inventory");
       setInventories(data?.inventory);
-      console.log(inventories);
     } catch (error) {
       console.log(error);
     }
@@ -40,15 +40,20 @@ const HomePage = () => {
       )}
 
       {showModal && <Modal setShowModal={setShowModal} />}
-      {inventories && (
+      {inventories.length == 0 ? (
+        <h2 style={{ margin: "30px", color: "red" }}>
+          No Inventory Present, Please create a Inventory
+        </h2>
+      ) : (
         <div className="inventory-container">
           <table>
             <thead>
               <tr>
-                <th>Date</th>
+                <th>Email</th>
                 <th>Inventory Type</th>
                 <th>Blood Group</th>
                 <th>Quantity</th>
+                <th>Created On</th>
               </tr>
             </thead>
             <tbody>
@@ -66,10 +71,11 @@ const HomePage = () => {
                 const formattedDate = date.toLocaleString(undefined, options);
                 return (
                   <tr key={index}>
-                    <th>{formattedDate}</th>
+                    <th>{item?.email}</th>
                     <th>{item?.inventoryType}</th>
                     <th>{item?.bloodGroup}</th>
                     <th>{item?.quantity}</th>
+                    <th>{formattedDate}</th>
                   </tr>
                 );
               })}

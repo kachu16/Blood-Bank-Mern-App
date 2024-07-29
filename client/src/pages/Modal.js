@@ -18,21 +18,29 @@ const Modal = ({ setShowModal }) => {
     setmodalData({ ...modalData, [name]: value });
   }
   async function handleSubmit(e) {
-    // debugger;
     try {
       e.preventDefault();
-      console.log(modalData);
-      const res = await API.post("/inventory/create-inventory", {
+      if (!modalData.email || !modalData.quantity || !modalData.bloodGroup) {
+        alert("Please fill all the fields");
+        return;
+      }
+
+      const { data } = await API.post("/inventory/create-inventory", {
         ...modalData,
         organization: user._id,
       });
-      if (res?.data?.success) {
+      console.log(data);
+
+      if (data?.success) {
         alert("An Inventory has been created!");
+        window.location.reload();
+      } else if (data?.message) {
+        alert(data?.message);
         window.location.reload();
       }
     } catch (error) {
+      console.log(error?.response?.data?.message);
       window.location.reload();
-      console.log(error);
     }
   }
   return (
