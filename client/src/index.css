@@ -236,7 +236,7 @@
   display: flex;
   align-items: center;
   padding-left: 30px;
-  margin-bottom: 20px;
+  /* margin-bottom: 20px; */
   transition: background-color .3s ease-in;
 }
 
@@ -246,7 +246,6 @@
 }
 
 .sidebar-items p {
-  /* text-align: center; */
   padding: 30px 0;
 }
 
@@ -277,10 +276,10 @@
 }
 
 .active {
-  background-color: #c7bcbc;
+  background-color: #fff;
 }
 
-.active a {
+.active p {
   color: black;
 }
 
@@ -419,7 +418,7 @@ tr:nth-child(even) {
   background-color: #f9f9f9;
 }
 
-tr:hover {
+td:hover {
   background-color: #f1f1f1;
 }
 

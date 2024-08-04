@@ -13,7 +13,14 @@ export const userLogin = createAsyncThunk(
         localStorage.setItem("token", data.token);
         // toast.success(data.message);
         alert(data.message);
-        window.location.replace("/");
+        if (
+          data?.existingUser?.role === "Donor" ||
+          data?.existingUser?.role === "Organization"
+        ) {
+          window.location.replace("/organization");
+        } else if (data?.existingUser?.role === "Organization") {
+          window.location.replace("/");
+        }
       }
       return data;
     } catch (err) {

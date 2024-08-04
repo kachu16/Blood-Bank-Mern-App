@@ -4,7 +4,7 @@ import userModel from "../models/userModel.js";
 
 export const createInventoryController = async (req, res) => {
   try {
-    const { email, inventoryType } = req.body;
+    const { email } = req.body;
     // validation
     const user = await userModel.findOne({ email });
     // console.log(user);
@@ -18,7 +18,7 @@ export const createInventoryController = async (req, res) => {
           "User not found! Enter a valid Email Address from which you registered",
       });
     }
-    if (inventoryType === "In" && user.role !== "Donor") {
+    if (req.body.inventoryType === "In" && user.role !== "Donor") {
       // throw new Error("Only Donor can add blood");
       return res.status(201).send({
         success: false,
@@ -26,7 +26,7 @@ export const createInventoryController = async (req, res) => {
           "Only Donor can add blood, you have to choose 'In' Inventory Type",
       });
     }
-    if (inventoryType === "Out" && user.role !== "Hospital") {
+    if (req.body.inventoryType === "Out" && user.role !== "Hospital") {
       // throw new Error("Only Hospital can send blood");
       return res.status(201).send({
         success: false,
@@ -132,6 +132,85 @@ export const getInventoryController = async (req, res) => {
       success: false,
       message: "Error in get inventory API",
       err,
+    });
+  }
+};
+
+// GET DONOR RECORDS
+export const getDonarsController = async (req, res) => {
+  try {
+    const organization = req.body.decodeID;
+
+    //find donor id
+    const donorId = await inventoryModel.distinct("donor", { organization });
+    // console.log(donorId);
+    const donors = await userModel.find({ _id: { $in: donorId } });
+    return res.status(200).send({
+      success: true,
+      message: "Donor Record fetched successfully",
+      donors,
+    });
+  } catch (error) {
+    console.log(error);
+    return res.status(500).send({
+      success: false,
+      message: "Error in get Donors Records!",
+      error,
+    });
+  }
+};
+
+// GET HOSPITAL RECORDS
+export const getHospitalController = async (req, res) => {
+  try {
+    const organization = req.body.decodeID;
+
+    //find hospital id
+    const hospitalId = await inventoryModel.distinct("hospital", {
+      organization,
+    });
+    console.log(hospitalId);
+    const hospitals = await userModel.find({ _id: { $in: hospitalId } });
+    return res.status(200).send({
+      success: true,
+      message: "Hospital Record fetched successfully",
+      hospitals,
+    });
+  } catch (error) {
+    console.log(error);
+    return res.status(500).send({
+      success: false,
+      message: "Error in getting Hospital Records",
+      error,
+    });
+  }
+};
+
+// GET ORGANIZATION RECORDS
+export const getOrganizationController = async (req, res) => {
+  try {
+    const donor = req.body.decodeID;
+    const organizationId = await inventoryModel.distinct("organization", {
+      donor,
+    });
+
+    // finding organizations
+    const organizations = await userModel.find({
+      _id: { $in: organizationId },
+    });
+
+    return res.status(200).send({
+      success: true,
+      message: "Organization Record fetched successfully",
+      organizations,
+    });
+  } catch (error) {
+    console.log(error);
+
+    return res.status(500).send({
+      success: false,
+      message: "Error in getting Organization Records",
+      error,
     });
   }
 };

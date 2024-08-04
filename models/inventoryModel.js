@@ -28,16 +28,16 @@ const inventorySchema = new mongoose.Schema(
     hospital: {
       type: mongoose.Schema.Types.ObjectId,
       ref: "Users",
-      // required: function () {
-      //   return this.inventoryType === "Out";
-      // },
+      required: function () {
+        return this.inventoryType === "Out";
+      },
     },
     donor: {
       type: mongoose.Schema.Types.ObjectId,
       ref: "Users",
-      //   required: function () {
-      //     return this.inventoryType === "In";
-      //   },
+      required: function () {
+        return this.inventoryType === "In";
+      },
     },
   },
   { timestamps: true }

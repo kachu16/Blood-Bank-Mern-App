@@ -36,6 +36,6 @@ Inventory
 Donor
 Hospotal
 
-Login as Hospotal :
+Login as Hospital :
 Organisation
 Consumer
