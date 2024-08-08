@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import Layout from "../../components/Layout";
 import API from "../../services/API";
+import Spinner from "../../components/Spinner";
 
 const Donor = () => {
   const [donorData, setDonorData] = useState([]);
@@ -21,8 +22,8 @@ const Donor = () => {
   }, []);
   return (
     <Layout>
-      {!donorData ? (
-        <h2>No data is present</h2>
+      {donorData.length === 0 ? (
+        <Spinner />
       ) : (
         <table style={{ margin: "20px" }}>
           <thead>

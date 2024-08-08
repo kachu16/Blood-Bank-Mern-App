@@ -12,6 +12,9 @@ import Organization from "./pages/dashboard/Organization";
 import Consumer from "./pages/dashboard/Consumer";
 import Donation from "./pages/dashboard/Donation";
 import Analytics from "./pages/dashboard/Analytics";
+import DonorList from "./pages/dashboard/DonorList";
+import HospitalList from "./pages/dashboard/HospitalList";
+import OrganizationList from "./pages/dashboard/OrganizationList";
 const App = () => {
   return (
     <>
@@ -86,6 +89,30 @@ const App = () => {
           element={
             <ProtectedRoutes>
               <Analytics />
+            </ProtectedRoutes>
+          }
+        />
+        <Route
+          path="/donorList"
+          element={
+            <ProtectedRoutes>
+              <DonorList />
+            </ProtectedRoutes>
+          }
+        />
+        <Route
+          path="/orgList"
+          element={
+            <ProtectedRoutes>
+              <OrganizationList />
+            </ProtectedRoutes>
+          }
+        />
+        <Route
+          path="/hospitalList"
+          element={
+            <ProtectedRoutes>
+              <HospitalList />
             </ProtectedRoutes>
           }
         />

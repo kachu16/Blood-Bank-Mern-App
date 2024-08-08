@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import Layout from "../../components/Layout";
 import API from "../../services/API";
 import { useSelector } from "react-redux";
+import Spinner from "../../components/Spinner";
 
 const Donation = () => {
   const { user } = useSelector((state) => state.auth);
@@ -30,8 +31,8 @@ const Donation = () => {
   }, []);
   return (
     <Layout>
-      {!donorInventoryData ? (
-        <h2>No data is present</h2>
+      {donorInventoryData.length === 0 ? (
+        <Spinner />
       ) : (
         <table style={{ margin: "20px" }}>
           <thead>

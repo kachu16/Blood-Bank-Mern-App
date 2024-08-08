@@ -31,7 +31,7 @@ const Header = () => {
           </Link>
         ) : location.pathname === "/analytics" ? (
           <Link to="/">
-            <div className="header-name">Analytics</div>
+            <div className="header-name">Home</div>
           </Link>
         ) : null}
         <button className="logout-button" onClick={handleLogout}>

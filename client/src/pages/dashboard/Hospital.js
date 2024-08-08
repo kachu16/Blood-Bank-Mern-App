@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from "react";
 import Layout from "../../components/Layout";
 import API from "../../services/API";
+import Spinner from "../../components/Spinner";
+
 const Hospital = () => {
   const [hospitalData, setHospitalData] = useState([]);
   async function getHospital() {
@@ -19,8 +21,8 @@ const Hospital = () => {
   }, []);
   return (
     <Layout>
-      {!hospitalData ? (
-        <h2>No data is present</h2>
+      {hospitalData.length === 0 ? (
+        <Spinner />
       ) : (
         <table style={{ margin: "20px" }}>
           <thead>

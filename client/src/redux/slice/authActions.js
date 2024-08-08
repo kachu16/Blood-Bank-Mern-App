@@ -20,6 +20,8 @@ export const userLogin = createAsyncThunk(
           window.location.replace("/organization");
         } else if (data?.existingUser?.role === "Organization") {
           window.location.replace("/");
+        } else if (data?.existingUser?.role === "Admin") {
+          window.location.replace("/donorList");
         }
       }
       return data;

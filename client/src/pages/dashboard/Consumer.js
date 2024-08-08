@@ -1,12 +1,13 @@
 import React, { useState, useEffect } from "react";
 import Layout from "../../components/Layout";
 import API from "../../services/API";
+import Spinner from "../../components/Spinner";
 import { useSelector } from "react-redux";
 
 const Consumer = () => {
   const { user } = useSelector((state) => state.auth);
-
   const [hospitalInventoryData, setHospitalInventoryData] = useState([]);
+
   async function getHospitalInventory() {
     try {
       const { data } = await API.post("/inventory/get-inventory-hospital", {
@@ -30,8 +31,8 @@ const Consumer = () => {
   }, []);
   return (
     <Layout>
-      {!hospitalInventoryData ? (
-        <h2>No data is present</h2>
+      {hospitalInventoryData.length === 0 ? (
+        <Spinner />
       ) : (
         <table style={{ margin: "20px" }}>
           <thead>

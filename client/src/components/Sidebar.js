@@ -86,6 +86,39 @@ const Sidebar = () => {
             </div>
           </Link>
         </>
+      ) : user?.role === "Admin" ? (
+        <>
+          <Link to="/donorList ">
+            <div
+              className={`sidebar-items ${
+                location.pathname === "/donorList" ? "active" : ""
+              }`}
+            >
+              <i className="fa-solid fa-building"></i>
+              <p>Donor List</p>
+            </div>
+          </Link>
+          <Link to="/hospitalList ">
+            <div
+              className={`sidebar-items ${
+                location.pathname === "/hospitalList" ? "active" : ""
+              }`}
+            >
+              <i className="fa-solid fa-building"></i>
+              <p>Hospital List</p>
+            </div>
+          </Link>
+          <Link to="/orgList ">
+            <div
+              className={`sidebar-items ${
+                location.pathname === "/orgList" ? "active" : ""
+              }`}
+            >
+              <i className="fa-solid fa-building"></i>
+              <p>Organization List</p>
+            </div>
+          </Link>
+        </>
       ) : null}
     </div>
   );

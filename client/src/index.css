@@ -457,3 +457,16 @@ caption {
 .card>* {
   margin-bottom: 20px;
 }
+
+.dlt-btn {
+  color: red;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.dlt-btn:hover {
+  color: #c82333;
+}

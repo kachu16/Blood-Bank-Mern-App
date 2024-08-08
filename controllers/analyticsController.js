@@ -5,7 +5,7 @@ export const bloodGroupDetailsController = async (req, res) => {
   try {
     const bloodGroups = ["A+", "A-", "B+", "B-", "AB+", "AB-", "O+", "O-"];
     const bloodGroupData = [];
-    const organization = new mongoose.Types.ObjectId(req.body.decodeId);
+    const organization = new mongoose.Types.ObjectId(req.body.decodeID);
 
     await Promise.all(
       bloodGroups.map(async (bloodGroup) => {

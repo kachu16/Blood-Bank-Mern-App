@@ -272,9 +272,11 @@ export const getHospitalOrganizationController = async (req, res) => {
 // GET LATEST 3 INVENTORY RECORDS
 export const getLatestInventoryController = async (req, res) => {
   try {
+    const organization = new mongoose.Types.ObjectId(req.body.decodeID);
+
     const inventory = await inventoryModel
       .find({
-        organization: req.body.decodeId,
+        organization,
       })
       .limit(3)
       .sort({ createdAt: -1 });

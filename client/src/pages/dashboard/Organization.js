@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import Layout from "../../components/Layout";
 import API from "../../services/API";
 import { useSelector } from "react-redux";
+import Spinner from "../../components/Spinner";
 
 const Hospital = () => {
   const [organizationData, setOrganizationData] = useState([]);
@@ -33,8 +34,8 @@ const Hospital = () => {
   }, [user]);
   return (
     <Layout>
-      {!organizationData ? (
-        <h2>No Organization data is present</h2>
+      {organizationData.length === 0 ? (
+        <Spinner />
       ) : (
         <table style={{ margin: "20px" }}>
           <thead>
