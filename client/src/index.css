@@ -5,6 +5,11 @@
   font-family: poppins, Verdana, Geneva, Tahoma, sans-serif;
 }
 
+a {
+  text-decoration: none;
+  color: #fff;
+}
+
 .form a {
   text-decoration: none;
   color: rgb(166, 166, 192);
@@ -429,4 +434,26 @@ td {
 caption {
   font-size: 1.5em;
   margin: 10px 0;
+}
+
+
+.wrapper {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.card {
+  max-width: 300px;
+  padding: 30px;
+  border-radius: 6px;
+  box-sizing: border-box;
+  color: #FFF;
+  margin: 20px;
+  border: 5px solid #fff;
+  box-shadow: rgb(50 50 93 / 25%) 0px 30px 60px -12px, rgb(0 0 0 / 30%) 0px 18px 36px -18px;
+}
+
+.card>* {
+  margin-bottom: 20px;
 }

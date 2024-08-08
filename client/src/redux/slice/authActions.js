@@ -15,7 +15,7 @@ export const userLogin = createAsyncThunk(
         alert(data.message);
         if (
           data?.existingUser?.role === "Donor" ||
-          data?.existingUser?.role === "Organization"
+          data?.existingUser?.role === "Hospital"
         ) {
           window.location.replace("/organization");
         } else if (data?.existingUser?.role === "Organization") {

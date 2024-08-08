@@ -9,7 +9,9 @@ import PublicRoutes from "./routes/PublicRoutes";
 import Donor from "./pages/dashboard/Donor";
 import Hospital from "./pages/dashboard/Hospital";
 import Organization from "./pages/dashboard/Organization";
-
+import Consumer from "./pages/dashboard/Consumer";
+import Donation from "./pages/dashboard/Donation";
+import Analytics from "./pages/dashboard/Analytics";
 const App = () => {
   return (
     <>
@@ -60,6 +62,30 @@ const App = () => {
           element={
             <ProtectedRoutes>
               <Organization />
+            </ProtectedRoutes>
+          }
+        />
+        <Route
+          path="/consumer"
+          element={
+            <ProtectedRoutes>
+              <Consumer />
+            </ProtectedRoutes>
+          }
+        />
+        <Route
+          path="/donation"
+          element={
+            <ProtectedRoutes>
+              <Donation />
+            </ProtectedRoutes>
+          }
+        />
+        <Route
+          path="/analytics"
+          element={
+            <ProtectedRoutes>
+              <Analytics />
             </ProtectedRoutes>
           }
         />

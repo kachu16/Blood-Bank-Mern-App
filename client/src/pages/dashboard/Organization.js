@@ -1,14 +1,28 @@
 import React, { useEffect, useState } from "react";
 import Layout from "../../components/Layout";
 import API from "../../services/API";
+import { useSelector } from "react-redux";
+
 const Hospital = () => {
   const [organizationData, setOrganizationData] = useState([]);
+  const { user } = useSelector((store) => store.auth);
+
   async function getOrganization() {
     try {
-      const { data } = await API.get("/inventory/organization-records");
-      // console.log(data);
-      if (data?.success) {
-        setOrganizationData(data?.organizations);
+      if (user?.role === "Donor") {
+        const { data } = await API.get("/inventory/organization-records");
+        console.log(data);
+        if (data?.success) {
+          setOrganizationData(data?.organizations);
+        }
+      } else if (user?.role === "Hospital") {
+        const { data } = await API.get(
+          "/inventory/organization-records-hospitals"
+        );
+        console.log(data);
+        if (data?.success) {
+          setOrganizationData(data?.organizations);
+        }
       }
     } catch (error) {
       console.log(error);
@@ -16,7 +30,7 @@ const Hospital = () => {
   }
   useEffect(() => {
     getOrganization();
-  }, []);
+  }, [user]);
   return (
     <Layout>
       {!organizationData ? (

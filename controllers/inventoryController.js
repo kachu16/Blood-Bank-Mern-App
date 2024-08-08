@@ -136,6 +136,31 @@ export const getInventoryController = async (req, res) => {
   }
 };
 
+export const getInventoryHospitalController = async (req, res) => {
+  try {
+    const inventory = await inventoryModel
+      .find(req.body.filters)
+      .populate("donor")
+      .populate("hospital")
+      .populate("organization")
+      .sort({ createdAt: -1 });
+
+    // console.log(inventory);
+    return res.status(200).send({
+      success: true,
+      message: "Successfully get all consumers records for hospital",
+      inventory,
+    });
+  } catch (err) {
+    console.log(err);
+    return res.status(500).send({
+      success: false,
+      message: "Error in getting consumer recorrsd for hospital",
+      err,
+    });
+  }
+};
+
 // GET DONOR RECORDS
 export const getDonarsController = async (req, res) => {
   try {
@@ -186,8 +211,8 @@ export const getHospitalController = async (req, res) => {
   }
 };
 
-// GET ORGANIZATION RECORDS
-export const getOrganizationController = async (req, res) => {
+// GET DONOR RELATED ORGANIZATION RECORDS
+export const getDonorOrganizationController = async (req, res) => {
   try {
     const donor = req.body.decodeID;
     const organizationId = await inventoryModel.distinct("organization", {
@@ -201,7 +226,7 @@ export const getOrganizationController = async (req, res) => {
 
     return res.status(200).send({
       success: true,
-      message: "Organization Record fetched successfully",
+      message: "Organization Record fetched successfully for Donor",
       organizations,
     });
   } catch (error) {
@@ -209,7 +234,61 @@ export const getOrganizationController = async (req, res) => {
 
     return res.status(500).send({
       success: false,
-      message: "Error in getting Organization Records",
+      message: "Error in getting Organization Records for Donor",
+      error,
+    });
+  }
+};
+
+// GET HOSPITAL RELATED ORGANIZATION RECORDS
+export const getHospitalOrganizationController = async (req, res) => {
+  try {
+    const hospital = req.body.decodeID;
+    const organizationId = await inventoryModel.distinct("organization", {
+      hospital,
+    });
+
+    // finding organizations
+    const organizations = await userModel.find({
+      _id: { $in: organizationId },
+    });
+
+    return res.status(200).send({
+      success: true,
+      message: "Organization Record for Hospital fetched successfully",
+      organizations,
+    });
+  } catch (error) {
+    console.log(error);
+
+    return res.status(500).send({
+      success: false,
+      message: "Error in getting Organization Records for Hospital",
+      error,
+    });
+  }
+};
+
+// GET LATEST 3 INVENTORY RECORDS
+export const getLatestInventoryController = async (req, res) => {
+  try {
+    const inventory = await inventoryModel
+      .find({
+        organization: req.body.decodeId,
+      })
+      .limit(3)
+      .sort({ createdAt: -1 });
+
+    return res.status(200).send({
+      success: true,
+      message: "Successfully getting all the Inventories",
+      inventory,
+    });
+  } catch (error) {
+    console.log(error);
+    return res.status(500).send({
+      success: false,
+      message: "Error  in getting recent 3 inventories",
       error,
     });
   }

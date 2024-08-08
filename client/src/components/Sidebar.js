@@ -52,10 +52,39 @@ const Sidebar = () => {
               <p>Organization</p>
             </div>
           </Link>
+          <Link to="/donation ">
+            <div
+              className={`sidebar-items ${
+                location.pathname === "/donation" ? "active" : ""
+              }`}
+            >
+              <i className="fa-solid fa-building"></i>
+              <p>Donation</p>
+            </div>
+          </Link>
         </>
       ) : user?.role === "Hospital" ? (
         <>
-          <h1>hello hospital</h1>
+          <Link to="/organization ">
+            <div
+              className={`sidebar-items ${
+                location.pathname === "/organization" ? "active" : ""
+              }`}
+            >
+              <i className="fa-solid fa-building"></i>
+              <p>Organization</p>
+            </div>
+          </Link>
+          <Link to="/consumer">
+            <div
+              className={`sidebar-items ${
+                location.pathname === "/consumer" ? "active" : ""
+              }`}
+            >
+              <i className="fa-solid fa-building"></i>
+              <p>Consumer</p>
+            </div>
+          </Link>
         </>
       ) : null}
     </div>
