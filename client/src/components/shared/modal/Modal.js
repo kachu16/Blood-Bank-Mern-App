@@ -1,11 +1,46 @@
 import React, { useState } from "react";
-import InputType from '../InputType';
+import InputType from '../InputType.js';
+import API from "../../../services/API.js";
+import { useSelector } from "react-redux";
 
 const Modal = () => {
-  const [inventoryType, setInventoryType] = useState("in");
-  const [bloodType, setBloodType] = useState("");
-  const [donorEmail, setDonorEmail] = useState("");
+  const [inventoryType, setInventoryType] = useState("In");
+  const [bloodGroup, setBloodGroup] = useState("");
+  const [email, setEmail] = useState("");
   const [quantity, setQuantity] = useState(0);
+
+  const {user} = useSelector((state) => state.auth);
+
+
+  const handleSubmit = async () => {
+    debugger;
+    if(!bloodGroup || !quantity) {
+      alert("Please fill all the fields");
+      return;
+    }
+
+    try {
+      const {data} = await API.post('/inventory/create-inventory', {
+        email,
+        organization: user?._id,
+        inventoryType,
+        bloodGroup,
+        quantity,
+   });
+
+   if(data.success) {
+     console.log(data);
+    alert("New Record Created");
+    window.location.reload();
+   }
+
+    } catch (error) {
+      alert(error.response.data.message);
+      console.log(error);
+    }
+
+
+  };
   return (
     <div>
       {/* Modal */}
@@ -18,7 +53,7 @@ const Modal = () => {
         aria-labelledby="staticBackdropLabel"
         aria-hidden="true"
       >
-        <div className="modal-dialog">
+        <div className="modal-dialog ">
           <div className="modal-content">
             <div className="modal-header">
               <h1 className="modal-title fs-5" id="staticBackdropLabel">
@@ -38,12 +73,12 @@ const Modal = () => {
                   <input
                     type="radio"
                     className="form-check-input"
-                    value={"in"}
+                    value={"In"}
                     name="inRadio"
                     onChange={(e)=> setInventoryType(e.target.value)}
-                    defaultChecked
+                    defaultChecked={inventoryType}
                   />
-                  <label htmlFor="in" className="form-check-label">
+                  <label htmlFor="In" className="form-check-label">
                     IN
                   </label>
                 </div>
@@ -51,12 +86,12 @@ const Modal = () => {
                   <input
                     type="radio"
                     className="form-check-input"
-                    value={"out"}
+                    value={"Out"}
                     name="inRadio"
                     onChange={(e)=> setInventoryType(e.target.value)}
-                    defaultChecked
+                    
                   />
-                  <label htmlFor="out" className="form-check-label">
+                  <label htmlFor="Out" className="form-check-label">
                     OUT
                   </label>
                 </div>
@@ -64,10 +99,11 @@ const Modal = () => {
               <select
                 className="form-select"
                 aria-label="Default select example"
-                value={bloodType}
+                value={bloodGroup}
+                onChange={(e) => setBloodGroup(e.target.value)}
               >
                 <option defaultValue={"Open this select menu"}>
-                  Open this select menu
+                  Select Blood Group
                 </option>
                 <option value={"O+"}>O+</option>
                 <option value={"O-"}>O-</option>
@@ -78,21 +114,24 @@ const Modal = () => {
                 <option value={"B+"}>B+</option>
                 <option value={"B-"}>B-</option>
               </select>
-            </div>
             <InputType
                 labelText={"Donar Email"}
                 labelFor={"donarEmail"}
-                inputType={"donarEmail"}
-                value={donorEmail}
-                onChange={(e) => setDonorEmail(e.target.value)}
+                inputType={"Donar Email"}
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                placeholder={'donarEmail'}
+        
               />
             <InputType
-                labelText={"quantity"}
+                labelText={"Quantity(ml)"}
                 labelFor={"quantity"}
-                inputType={"quantity"}
+                inputType={"Number"}
                 value={quantity}
                 onChange={(e) => setQuantity(e.target.value)}
               />
+               
+            </div>
             <div className="modal-footer">
               <button
                 type="button"
@@ -101,7 +140,7 @@ const Modal = () => {
               >
                 Close
               </button>
-              <button type="button" className="btn btn-primary">
+              <button type="button" className="btn btn-primary" onClick={handleSubmit}>
                 Submit
               </button>
             </div>

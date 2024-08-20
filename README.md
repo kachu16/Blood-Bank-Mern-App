@@ -27,13 +27,13 @@ dotenv : used for security purpose where we store our credentials mainly confide
 
 mongosh is shell that helps us to interact with mongodb
 
-Login as Donor :
+Login as  :
 Organisation
 Donation
 
 Login as Organisation :
 Inventory
-Donor
+Donar
 Hospotal
 
 Login as Hospotal :

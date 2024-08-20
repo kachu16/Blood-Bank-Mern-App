@@ -13,6 +13,7 @@ export const handleLogin = (e, role, email, password) => {
 
 
 export const handleRegister = (e, role, email, password, name, organizationName, hospitalName, address, phone) => {
+  console.log('register api');
   e.preventDefault();
   try {
       store.dispatch(userRegister({ role, email, password, name, organizationName, hospitalName, address, phone }));

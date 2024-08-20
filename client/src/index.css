@@ -3,6 +3,7 @@
   padding: 0;
   box-sizing: border-box;
   font-family: poppins, Verdana, Geneva, Tahoma, sans-serif;
+  /* overflow: hidden; */
 }
 .form a {
   text-decoration: none;
@@ -46,15 +47,15 @@
   background: transparent;
   border: none;
   outline: none;
-  border: 1px solid rgba(255, 255, 255, 0.2);
+  border: 2px solid rgba(14, 12, 12, 0.2); 
   border-radius: 8px;
   font-size: 14px;
-  color: #fff;
+  color: #010101;
   padding: 12px;
   margin: 7px 0;
 }
 .input-box input::placeholder {
-  color: #fff;
+  color: #f5f2f2;
 }
 .form-box button {
   width: 100%;

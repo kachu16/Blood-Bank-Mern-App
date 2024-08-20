@@ -5,12 +5,12 @@ const userSchema = new mongoose.Schema({
     role: {
         type: String,
         required: [true, 'Role is required'],
-        enum: ['Admin', 'Organization', 'Donor', 'Hospital']
+        enum: ['Admin', 'Organization', 'Donar', 'Hospital']
     },
     name: {
         type: String,
         required: function () {
-            if (this.role === 'Donor' || this.role === 'Admin') {
+            if (this.role === 'Donar' || this.role === 'Admin') {
                 return true
             }
             return false
