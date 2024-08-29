@@ -4,6 +4,8 @@ import { useNavigate, useLocation, Link } from "react-router-dom";
 
 const Header = () => {
   const user = useSelector((store) => store.auth.user);
+  const initialLetter =
+    user?.name || user?.hospitalName || user?.organizationName;
   const navigate = useNavigate();
   const location = useLocation();
 
@@ -18,22 +20,21 @@ const Header = () => {
         <h1>BLOOD BANK</h1>
       </div>
       <div className="header-right">
-        <div className="header-name">
-          <span>Welcome </span>
-          <span>
-            {user?.name || user?.hospitalName || user?.organizationName}!
-          </span>
-          <span className="badge">{user?.role}</span>
-        </div>
         {location.pathname === "/" ? (
           <Link to="/analytics">
-            <div className="header-name">Analytics</div>
+            <span>Analytics</span>
           </Link>
         ) : location.pathname === "/analytics" ? (
           <Link to="/">
-            <div className="header-name">Home</div>
+            <span>Home</span>
           </Link>
         ) : null}
+
+        <div>
+          <strong>{initialLetter && initialLetter[0]}</strong>
+          <span className="badge">{user?.role}</span>
+        </div>
+
         <button className="logout-button" onClick={handleLogout}>
           Logout
         </button>
