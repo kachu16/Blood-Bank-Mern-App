@@ -19,58 +19,57 @@ const Form = ({ submitBtn, formType, mainHeading }) => {
     setFormData({ ...formData, [name]: value });
   };
 
-  const [errors, setErrors] = useState({});
+  // const [errors, setErrors] = useState({});
 
-  const validateForm = () => {
-    const newErrors = {};
-    // const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
+  // const validateForm = () => {
+  //   const newErrors = {};
+  //   // const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
 
-    if (!formData.email) {
-      newErrors.email = "Email is required";
-    } else if (!/\S+@\S+\.\S+/.test(formData.email)) {
-      newErrors.email = "Email Address is invalid";
-    }
+  //   if (!formData.email) {
+  //     newErrors.email = "Email is required";
+  //   } else if (!/\S+@\S+\.\S+/.test(formData.email)) {
+  //     newErrors.email = "Email Address is invalid";
+  //   }
 
-    if (!formData.password) {
-      newErrors.password = "Password is required";
-    }
-    // } else if (!passwordRegex.test(formData.password)) {
-    //     newErrors.password = "Password must contain at least 8 characters, including an uppercase letter, a lowercase letter, a digit, and a special character.";
-    // }
+  //   if (!formData.password) {
+  //     newErrors.password = "Password is required";
+  //   }
+  //   // } else if (!passwordRegex.test(formData.password)) {
+  //   //     newErrors.password = "Password must contain at least 8 characters, including an uppercase letter, a lowercase letter, a digit, and a special character.";
+  //   // }
 
-    if (formType === "register") {
-      if (
-        !formData.name &&
-        (formData.role === "Donor" || formData.role === "Admin")
-      ) {
-        newErrors.name = "Name is required";
-      } else if (formData.name.length < 6) {
-        newErrors.name = "Name must be at least 6 characters long";
-      }
+  //   if (formType === "register") {
+  //     if (
+  //       !formData.name &&
+  //       (formData.role === "Donor" || formData.role === "Admin")
+  //     ) {
+  //       newErrors.name = "Name is required";
+  //     } else if (formData.name.length < 6) {
+  //       newErrors.name = "Name must be at least 6 characters long";
+  //     }
 
-      if (!formData.organizationName && formData.role === "Organization") {
-        newErrors.organizationName = "Organization Name is required";
-      }
-      if (!formData.hospitalName && formData.role === "Hospital") {
-        newErrors.hospitalName = "Hospital Name is required";
-      }
-      if (!formData.phone) {
-        newErrors.phone = "Phone is required";
-      } else if (!/^\d{10}$/.test(formData.phone)) {
-        newErrors.phone = "Phone number is invalid";
-      }
-    }
+  //     if (!formData.organizationName && formData.role === "Organization") {
+  //       newErrors.organizationName = "Organization Name is required";
+  //     }
+  //     if (!formData.hospitalName && formData.role === "Hospital") {
+  //       newErrors.hospitalName = "Hospital Name is required";
+  //     }
+  //     if (!formData.phone) {
+  //       newErrors.phone = "Phone is required";
+  //     } else if (!/^\d{10}$/.test(formData.phone)) {
+  //       newErrors.phone = "Phone number is invalid";
+  //     }
+  //   }
 
-    setErrors(newErrors);
-    return Object.keys(newErrors).length === 0;
-  };
+  //   setErrors(newErrors);
+  //   return Object.keys(newErrors).length === 0;
+  // };
 
   return (
     <div>
       <form
         onSubmit={(e) => {
           e.preventDefault();
-          if (validateForm()) {
             if (formType === "login")
               return handleLogin(
                 e,
@@ -89,7 +88,6 @@ const Form = ({ submitBtn, formType, mainHeading }) => {
                 formData.hospitalName,
                 formData.phone
               );
-          }
         }}
       >
         <h1>{mainHeading}</h1>
@@ -153,7 +151,7 @@ const Form = ({ submitBtn, formType, mainHeading }) => {
                     value={formData.email}
                     onChange={handleChange}
                   />
-                  {errors.email && <p className="error">{errors.email}</p>}
+                  {/* {errors.email && <p className="error">{errors.email}</p>} */}
                   <InputType
                     labelText="Enter the password"
                     labelFor="password"
@@ -163,9 +161,9 @@ const Form = ({ submitBtn, formType, mainHeading }) => {
                     value={formData.password}
                     onChange={handleChange}
                   />
-                  {errors.password && (
+                  {/* {errors.password && (
                     <p className="error">{errors.password}</p>
-                  )}
+                  )} */}
                 </>
               );
             }
@@ -184,7 +182,7 @@ const Form = ({ submitBtn, formType, mainHeading }) => {
                         value={formData.name}
                         onChange={handleChange}
                       />
-                      {errors.name && <p className="error">{errors.name}</p>}
+                      {/* {errors.name && <p className="error">{errors.name}</p>} */}
                     </>
                   ) : formData.role === "Organization" ? (
                     <>
@@ -197,9 +195,9 @@ const Form = ({ submitBtn, formType, mainHeading }) => {
                         value={formData.organizationName}
                         onChange={handleChange}
                       />
-                      {errors.organizationName && (
+                      {/* {errors.organizationName && (
                         <p className="error">{errors.organizationName}</p>
-                      )}
+                      )} */}
                     </>
                   ) : formData.role === "Hospital" ? (
                     <>
@@ -212,9 +210,9 @@ const Form = ({ submitBtn, formType, mainHeading }) => {
                         value={formData.hospitalName}
                         onChange={handleChange}
                       />
-                      {errors.hospitalName && (
+                      {/* {errors.hospitalName && (
                         <p className="error">{errors.hospitalName}</p>
-                      )}
+                      )} */}
                     </>
                   ) : null}
 
@@ -227,7 +225,7 @@ const Form = ({ submitBtn, formType, mainHeading }) => {
                     value={formData.email}
                     onChange={handleChange}
                   />
-                  {errors.email && <p className="error">{errors.email}</p>}
+                  {/* {errors.email && <p className="error">{errors.email}</p>} */}
                   <InputType
                     labelText="Enter the password"
                     labelFor="password"
@@ -237,9 +235,9 @@ const Form = ({ submitBtn, formType, mainHeading }) => {
                     value={formData.password}
                     onChange={handleChange}
                   />
-                  {errors.password && (
+                  {/* {errors.password && (
                     <p className="error">{errors.password}</p>
-                  )}
+                  )} */}
                   <InputType
                     labelText="Enter the Phone"
                     labelFor="phone"
@@ -249,9 +247,13 @@ const Form = ({ submitBtn, formType, mainHeading }) => {
                     value={formData.phone}
                     onChange={handleChange}
                   />
-                  {errors.phone && <p className="error">{errors.phone}</p>}
+                  {/* {errors.phone && <p className="error">{errors.phone}</p>} */}
                 </>
               );
+            }
+            
+            default : {
+              return null;
             }
           }
         })()}
