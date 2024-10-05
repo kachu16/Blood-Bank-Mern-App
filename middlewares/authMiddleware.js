@@ -3,7 +3,7 @@ import jwt from "jsonwebtoken";
 // we can use this middleware to any route to check whether the user is authenticated(has token) and then verifying the token
 export const authMiddleware = (req, res, next) => {
   try {
-    const token = req.headers["authorization"].split(" ")[1];
+    const token = req.headers["authorization"]?.split(" ")[1];
 
     // decode contains the original data /payload
     jwt.verify(token, process.env.JWT_SECRET, (err, decode) => {

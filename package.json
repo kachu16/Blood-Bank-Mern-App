@@ -8,7 +8,8 @@
     "start": "nodemon server.js",
     "test": "echo \"Error: no test specified\" && exit 1",
     "client":"npm run start --prefix client",
-    "dev" : "concurrently \"npm run client\" \"npm run start\""
+    "dev" : "concurrently \"npm run client\" \"npm run start\"",
+   "build": "react-scripts build"
   },
   "author": "kajol",
   "license": "ISC",
