@@ -3,6 +3,7 @@ import dotenv from "dotenv";
 import colors from "colors";
 import morgan from "morgan";
 import cors from "cors";
+import path  from "path";
 
 import connectDB from "./config/db.js";
 import authRoutes from "./routes/authRoutes.js";
@@ -29,6 +30,15 @@ app.use("/api/v1/auth", authRoutes);
 app.use("/api/v1/inventory", inventoryRoutes);
 app.use("/api/v1/analytics", analyticsRoutes);
 app.use("/api/v1/admin", adminRoutes);
+
+
+// STATIC FILES DISPLAY
+app.use(express.static(path.join(__dirname,'./client/build')))
+
+// STATIC ROUTES
+app.get('*', function(req, res){
+  res.sendFile(path.join(__dirname,'./client/build/index.html'))
+})
 
 // port
 const PORT = process.env.PORT || 8080;

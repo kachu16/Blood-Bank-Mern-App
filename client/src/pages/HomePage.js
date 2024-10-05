@@ -40,7 +40,7 @@ const HomePage = () => {
       )}
 
       {showModal && <Modal setShowModal={setShowModal} />}
-      {inventories.length == 0 ? (
+      {inventories.length === 0 ? (
         <h2 style={{ margin: "30px", color: "red" }}>
           No Inventory Present, Please create a Inventory
         </h2>
