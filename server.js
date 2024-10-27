@@ -4,12 +4,20 @@ import colors from "colors";
 import morgan from "morgan";
 import cors from "cors";
 import path  from "path";
+import { fileURLToPath } from 'url';
+import { dirname } from 'path';
+
 
 import connectDB from "./config/db.js";
 import authRoutes from "./routes/authRoutes.js";
 import inventoryRoutes from "./routes/inventoryRoutes.js";
 import analyticsRoutes from "./routes/analyticsRoutes.js";
 import adminRoutes from "./routes/adminRoutes.js";
+
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = dirname(__filename);
+
 
 // dotenv config
 dotenv.config();
@@ -39,6 +47,7 @@ app.use(express.static(path.join(__dirname,'./client/build')))
 app.get('*', function(req, res){
   res.sendFile(path.join(__dirname,'./client/build/index.html'))
 })
+
 
 // port
 const PORT = process.env.PORT || 8080;
