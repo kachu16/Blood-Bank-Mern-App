@@ -5,7 +5,7 @@ import morgan from "morgan";
 import cors from "cors";
 import path  from "path";
 import { fileURLToPath } from 'url';
-import { dirname } from 'path';
+// import { dirname } from 'path';
 
 
 import connectDB from "./config/db.js";
@@ -15,8 +15,6 @@ import analyticsRoutes from "./routes/analyticsRoutes.js";
 import adminRoutes from "./routes/adminRoutes.js";
 
 
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = dirname(__filename);
 
 
 // dotenv config
