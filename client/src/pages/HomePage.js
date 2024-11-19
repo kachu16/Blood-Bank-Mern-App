@@ -18,9 +18,10 @@ const HomePage = () => {
       console.log(error);
     }
   }
+
   useEffect(() => {
     getInventoryRecords();
-  }, []);
+  }, [inventories]);
 
   return (
     <Layout>

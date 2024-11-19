@@ -28,7 +28,7 @@ const Consumer = () => {
 
   useEffect(() => {
     getHospitalInventory();
-  }, []);
+  }, [user]);
   return (
     <Layout>
       {hospitalInventoryData.length === 0 ? (
